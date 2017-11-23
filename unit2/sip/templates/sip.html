@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+{% block head_title %}Login page{% endblock %}
+
+{% block main %}
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var stateArea = $('#state');
+            var webSocket = new WebSocket('ws://' + window.location.host + '/sip');
+            webSocket.onmessage = function (message) {
+                console.log('onmessage');
+                console.log(message);
+                var data = JSON.parse(message.data);
+                stateArea.html(data.state);
+            };
+        })
+    </script>
+    <p id="state">loading...</p>
+{% endblock %}
